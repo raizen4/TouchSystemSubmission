@@ -1,0 +1,25 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.20.2"
+  },
+  "dependencies": {
+    "metro-config": "^0.56.0",
+    "yup": "^0.28.5"
+  },
+  "scripts": {
+    "startFrontend": "cd ./packages/touch-systems-frontend && yarn start"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/react",
+      "**/react/**",
+      "**/react-dom",
+      "**/react-dom/**"
+    ]
+  }
+}
