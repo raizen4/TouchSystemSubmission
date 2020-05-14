@@ -22,3 +22,13 @@
 ## Atomic Design (the use of atoms, molecules, organisms and pages)
   ### Have a look here for a proper intro https://bradfrost.com/blog/post/atomic-web-design/
   This kind or architectural decision has been taken by me mostly because of the reusability advantages it produces. It makes reusing and mixing components extremely easy. On top of this it provides a clear layout when designing UI libraries as well as a more modular file structure whilst keeping changing different implementations across the website a painless activity. It is quite an industry standard for implementing react using only best practices.
+
+# Images!!
+
+  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/1.PNG)
+  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/2.PNG)
+  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/3.PNG)
+  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/4.PNG)
+  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/5.PNG)
+  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/6.PNG)
+
