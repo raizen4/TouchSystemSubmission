@@ -6,6 +6,8 @@
  
 ## React
 - React Hooks
+- Used peroper theming throughout the project
+- Kept reusability to a maximum by adhering to ATOMIC and SOLID principles
 - Material ui for fluid UI as it uses google guidelines for UI and UX
 - Axios for HTTP calls
 - Context API for global store management
