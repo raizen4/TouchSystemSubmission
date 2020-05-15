@@ -1,7 +1,15 @@
 
 # How to run
   Please have yarn installed by all means as this is needed by the monorepo. Then just run "yarn install" and after it finishes "yarn startFrontend" and you should see the page" 
-  
+# Features
+ - Fully working Sign Up page using global state management
+ - Modern interface
+ - Shows news and details about them using collapsable Cards
+ - Can filter by specific publications
+ - Navigation
+ - Fully working Rest api interface.
+ 
+
 # Choice of technnologies.
  
 ## React
