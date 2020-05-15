@@ -5,8 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
+import Paper from "@material-ui/core/Paper";
+
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useTheme } from "@material-ui/core/styles";
 import { withRouter } from "react-router";
@@ -33,23 +33,16 @@ const useStyles = makeStyles((theme) => ({
   topContainer: {
     width: "inherit",
     height: "15vh",
-    [theme.breakpoints.down("md")]: {
-      height: "15vh",
-    },
-    zIndex:4,
-    marginBottom:theme.spacing(2),
     justifyContent: "center",
     alignItems: "center",
   },
   middleContainer: {
     width: "100%",
-    overflowY: "scroll",
-    height: "67vh",
+    height: "60vh",
     [theme.breakpoints.down("md")]: {
-      height: "67vh",
+      height: "75vh",
     },
     justifyContent: "center",
-    overflow: "hidden",
     alignItems: "center",
   },
 
@@ -57,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
     width: "40vw",
     [theme.breakpoints.down("md")]: {
       width: "90vw",
+      position: "fixed",
+      marginBottom: theme.spacing(2),
     },
   },
   textFieldStyle: {
@@ -64,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footerContainer: {
     width: "inherit",
-    height: "10vh",
+    height: "8vh",
   },
 }));
 
@@ -98,17 +93,22 @@ const MainDashboard = () => {
   useEffect(() => {
     const getPublicationData = async () => {
       try {
-        const apiResp = await NewsApi.getHeadlinesBasedOnPublication(
-          optionsSelected
-        );
-        console.log(apiResp);
+        let apiResp;
+        if (optionsSelected.length === 0) {
+          apiResp = await NewsApi.getTopHeadlinesUK();
+        } else {
+          apiResp = await NewsApi.getHeadlinesBasedOnPublication(
+            optionsSelected
+          );
+        }
+
+        setNews(apiResp);
       } catch (err) {
         console.log(err);
       }
     };
-    if (optionsSelected.length > 0) {
-      getPublicationData();
-    }
+
+    getPublicationData();
   }, [setOptionsSelected, optionsSelected]);
 
   const updateOptionsSelected = (params) => {
@@ -132,23 +132,19 @@ const MainDashboard = () => {
         <div className={classes.headerContainer}>
           <Header userLogged={state.currentUser} />
         </div>
-        <div className={classes.topContainer}>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
-            <Grid item xs={12} lg={5}>
-              {biggerThanMd ? (
+        {biggerThanMd && (
+          <div className={classes.topContainer}>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item xs={12} lg={5}>
                 <Typography variant="h3">Welcome to your daily news</Typography>
-              ) : (
-                <Typography variant="h4">Welcome to your daily news</Typography>
-              )}
-            </Grid>
-            <Grid item xs={12} lg={5}>
+              </Grid>
+
               <Autocomplete
-                fullWidth
                 className={classes.autocomplete}
                 multiple
                 size="medium"
@@ -170,33 +166,80 @@ const MainDashboard = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    variant="outlined"
+                    variant="standard"
                     label="Choose your sources"
                     placeholder="Favorites"
                   />
                 )}
               />
             </Grid>
-          </Grid>
-        </div>
-        <div className={classes.middleContainer}>
-          <div style={{ overflowY: "hidden" }}>
-            <Grid container justify="center" alignItems="center">
-              {news.map((newsPiece) => {
-                return (
-                  <Grid
-                    style={{ margin: theme.spacing(1) }}
-                    key={newsPiece.guid}
-                    Item
-                    xs={12}
-                    lg={6}
-                  >
-                    <MainStory item={newsPiece} />
-                  </Grid>
-                );
-              })}
-            </Grid>
           </div>
+        )}
+
+        <div className={classes.middleContainer}>
+          {!biggerThanMd && (
+            <Grid
+              container
+              style={{ backgroundColor: "red" }}
+              justify="center"
+              alignItems="center"
+              style={{ paddingBottom: theme.spacing(2) }}
+            >
+              <Autocomplete
+                className={classes.autocomplete}
+                multiple
+                size="medium"
+                options={newsSources}
+                getOptionSelected={(option, value) =>
+                  option.title === value.title
+                }
+                getOptionLabel={(option) => option.formattedTitle}
+                renderOption={(params) => (
+                  <Button
+                    fullWidth
+                    onClick={() => updateOptionsSelected(params)}
+                  >
+                    <Typography color="primary">
+                      {params.formattedTitle}
+                    </Typography>
+                  </Button>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Choose your sources"
+                    placeholder="Favorites"
+                  />
+                )}
+              />
+            </Grid>
+          )}
+          <div></div>
+          <Grid
+            style={{
+              marginTop: theme.spacing(2),
+              height: "95%",
+              overflowY: "scroll",
+            }}
+            container
+            justify="center"
+            alignItems="center"
+          >
+            {news.map((newsPiece) => {
+              return (
+                <Grid
+                  style={{ margin: theme.spacing(1) }}
+                  key={newsPiece.guid}
+                  item
+                  xs={12}
+                  lg={6}
+                >
+                  <MainStory item={newsPiece} />
+                </Grid>
+              );
+            })}
+          </Grid>
         </div>
         <div className={classes.footerContainer}>
           <Footer />

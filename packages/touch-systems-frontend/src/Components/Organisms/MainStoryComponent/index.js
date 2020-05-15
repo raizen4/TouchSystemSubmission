@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 
@@ -40,18 +39,19 @@ const MainStory = (props) => {
     imageThumb,
     linkToNewsSource,
   } = props.item;
+
   const preventDefault = (event) => event.preventDefault();
 
   return (
     <Card className={classes.root}>
       <CardContent>
         <Typography variant="h6" color="textSecondary">
-          Source: <b>{source}</b>
+          <b> Source:</b> <b>{source}</b>
         </Typography>
         <Typography variant="h6" color="textSecondary">
-          Link to source:{" "}
+          <b>Link to source:</b>
           <Link href={linkToNewsSource} onClick={preventDefault}>
-            <b>{linkToNewsSource}</b>
+            {linkToNewsSource}
           </Link>
         </Typography>
       </CardContent>

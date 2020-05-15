@@ -43,7 +43,7 @@ const SingleSignUp = ({ submitForm }) => {
 
   let formValidationSchema = yup.object().shape({
     displayName: yup.string().required(),
-    email: yup.string().required().min(4).max(30),
+    email: yup.string().required().email().min(4).max(30),
   });
 
   const initialValues = {
@@ -141,6 +141,7 @@ const SingleSignUp = ({ submitForm }) => {
                   <TextField
                     error={errors.email && touched.email}
                     name="email"
+                    type="email"
                     value={values.email}
                     onChange={handleChange}
                     onBlur={handleBlur}

@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import makeStyles from "@material-ui/styles/makeStyles";
 import Fade from "@material-ui/core/Fade";
 import { withRouter } from "react-router";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useHistory } from "react-router-dom";
 
 import Header from "../../Organisms/HeaderComponent/index";
 import Footer from "../../Organisms/FooterComponent/index";
@@ -34,14 +33,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const App = ({ history }) => {
+const App = () => {
   const classes = useStyles({});
+  let history = useHistory();
   const [state, dispatch] = useContext(UserStore);
-  const theme = useTheme();
-  const biggerThanMd = useMediaQuery(theme.breakpoints.up("md"));
 
   const validateFormAndNavigate = (values) => {
     const { email, displayName } = values;
+    
     dispatch({
       type: "ADD_USER",
       payload: {
