@@ -26,9 +26,13 @@
 # Images!!
 
   ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/1.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/2.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/3.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/4.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/5.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/6.PNG)
+  ![Image2](https://github.com/raizen4/TouchSystemSubmission/blob/master/2.PNG)
+  ![Image3](https://github.com/raizen4/TouchSystemSubmission/blob/master/9.PNG)
+  ![Image4](https://github.com/raizen4/TouchSystemSubmission/blob/master/10.PNG)
+  ![Image5](https://github.com/raizen4/TouchSystemSubmission/blob/master/11.PNG)
+  ![Image6](https://github.com/raizen4/TouchSystemSubmission/blob/master/12.PNG)
+  ![Image7](https://github.com/raizen4/TouchSystemSubmission/blob/master/14.PNG)
+  ![Image8](https://github.com/raizen4/TouchSystemSubmission/blob/master/15.PNG)
+  ![Image9](https://github.com/raizen4/TouchSystemSubmission/blob/master/17.PNG)
+
 
