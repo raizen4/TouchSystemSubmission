@@ -1,6 +1,6 @@
 
 # How to run
-  Please have yarn installed by all means as this is needed by the monorepo. Then just run "yarn install" and after it finishes "yarn startFrontend" and you should see the page" 
+  Please have yarn installed by all means as this is needed by the monorepo. Then just run "yarn install" and after it finishes "yarn startFrontend" and you should see the login page
 # Features
  - Fully working Sign Up page using global state management
  - Main dashboard shows news around the world by default and details about them using collapsable Cards
