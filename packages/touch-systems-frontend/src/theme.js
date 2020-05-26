@@ -11,7 +11,10 @@ let theme = responsiveFontSizes(
   createMuiTheme({
     palette: {
       primary: {
-        main: "#000",
+        main: grey[900],
+      },
+      secondary: {
+        main: grey[50],
       },
       text: {
         primary: grey[50],

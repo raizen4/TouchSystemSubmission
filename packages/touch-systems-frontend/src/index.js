@@ -23,6 +23,13 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
+const appHeight = () =>
+document.documentElement.style.setProperty(
+  "--app-height",
+  `${window.innerHeight}px`
+);
+window.addEventListener("resize", appHeight);
+appHeight();
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

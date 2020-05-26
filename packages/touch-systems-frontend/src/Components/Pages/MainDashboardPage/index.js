@@ -3,9 +3,6 @@ import makeStyles from "@material-ui/styles/makeStyles";
 import Fade from "@material-ui/core/Fade";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useTheme } from "@material-ui/core/styles";
 import { withRouter } from "react-router";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -34,10 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   middleContainer: {
     width: "100%",
-    height: "60%",
-    [theme.breakpoints.down("md")]: {
-      height: "70%",
-    },
+    height: "70%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -122,9 +116,10 @@ const MainDashboard = () => {
   return (
     <Fade in={true}>
       <Grid container className={classes.parentContainer}>
-        <div className={classes.headerContainer}>
+        <Grid item className={classes.headerContainer}>
           <Header />
-        </div>
+        </Grid>
+
         <Grid item className={classes.topContainer}>
           <Grid
             container
@@ -171,6 +166,7 @@ const MainDashboard = () => {
             })}
           </Grid>
         </Grid>
+
         <Grid item className={classes.footerContainer}>
           <Footer />
         </Grid>
