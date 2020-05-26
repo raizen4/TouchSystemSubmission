@@ -12,10 +12,10 @@ import GREY from "@material-ui/core/colors/grey";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "inherit",
-    width: "inherit",
-    position:'fixed',
-    bottom:0,
+    display: "flex",
+    height:"100%",
+    width:"100%",
+    bottom: 0,
   },
 
   footerItemStyleDesktop: {
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(0),
   },
   imageStyleDesktop: {
+   
     margin: theme.spacing(2),
     width: "45px",
     height: "50px",
@@ -48,7 +49,7 @@ const Footer = () => {
       {!biggerThanMd ? (
         <AppBar
           position="relative"
-          style={{ height: "inherit", backgroundColor: `${GREY[800]}` }}
+          style={{ alignSelf: "stretch", backgroundColor: `${GREY[800]}` }}
         >
           <Toolbar>
             <Grid direction="row" alignItems="center" container>

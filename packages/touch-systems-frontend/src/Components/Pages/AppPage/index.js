@@ -1,35 +1,42 @@
 import React, { useContext } from "react";
 import makeStyles from "@material-ui/styles/makeStyles";
+import Grid from "@material-ui/core/Grid";
+
 import Fade from "@material-ui/core/Fade";
 import { withRouter } from "react-router";
 import { useHistory } from "react-router-dom";
+import { AzureAD, AuthenticationState } from "react-aad-msal";
 
 import Header from "../../Organisms/HeaderComponent/index";
 import Footer from "../../Organisms/FooterComponent/index";
 import SingleSignUp from "../../Organisms/SingleSignUpComponent/index";
 import { UserStore } from "../../../stores/index";
+import { authProvider } from "../../../authProvider";
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    width: "100%",
-    height: "100vh",
+    flexGrow: 1,
+    height: "var(--app-height)",
   },
   topContainer: {
-    width: "inherit",
-    height: "10vh",
+    height: "10%",
+    [theme.breakpoints.down("md")]: {
+      height: "8%",
+    },
   },
   mainContainer: {
-    width: "inherit",
-    height: "80vh",
+    height: "80%",
+    [theme.breakpoints.down("md")]: {
+      height: "84%",
+    },
     justifyContent: "center",
     alignItems: "center",
   },
   footerContainer: {
-    width: "inherit",
-    height: "10vh",
+    height: "10%",
+    [theme.breakpoints.down("md")]: {
+      height: "8%",
+    },
   },
 }));
 
@@ -38,9 +45,17 @@ const App = () => {
   let history = useHistory();
   const [state, dispatch] = useContext(UserStore);
 
+  const appHeight = () =>
+    document.documentElement.style.setProperty(
+      "--app-height",
+      `${window.innerHeight}px`
+    );
+  window.addEventListener("resize", appHeight);
+
+  appHeight();
+
   const validateFormAndNavigate = (values) => {
     const { email, displayName } = values;
-    
     dispatch({
       type: "ADD_USER",
       payload: {
@@ -51,20 +66,26 @@ const App = () => {
 
     history.push("/Dashboard");
   };
-
+  const getAuthToken = async () => {
+    // You should should use getAccessToken() to fetch a fresh token before making API calls
+    const token = await authProvider.getAccessToken();
+    const userInfo = await authProvider.getAccountInfo();
+    console.log(token.accessToken);
+    console.log(userInfo.account);
+  };
   return (
     <Fade in={true}>
-      <div className={classes.parentContainer}>
-        <div className={classes.topContainer}>
+      <Grid container className={classes.parentContainer}>
+        <Grid item xs={12} className={classes.topContainer}>
           <Header />
-        </div>
-        <div className={classes.mainContainer}>
+        </Grid>
+        <Grid item xs={12} className={classes.mainContainer}>
           <SingleSignUp submitForm={validateFormAndNavigate} />
-        </div>
-        <div className={classes.footerContainer}>
+        </Grid>
+        <Grid item xs={12} className={classes.footerContainer}>
           <Footer />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </Fade>
   );
 };

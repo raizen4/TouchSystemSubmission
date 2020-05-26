@@ -5,8 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useTheme } from "@material-ui/core/styles";
 import { withRouter } from "react-router";
@@ -17,57 +15,47 @@ import Footer from "../../Organisms/FooterComponent/index";
 import { UserStore } from "../../../stores/index";
 import * as NewsApi from "../../../Services/NewsApiWrapper/index";
 import MainStory from "../../Organisms/MainStoryComponent";
+import ChoicePickerAutocomplete from "../../Molecules/ChoicePickerAutocompleteComponent/index";
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
+    height: "var(--app-height)",
     width: "100%",
-    height: "100vh",
   },
   headerContainer: {
-    width: "inherit",
-    height: "7vh",
+    width: "100%",
+    height: "10%",
   },
   topContainer: {
-    width: "inherit",
-    height: "15vh",
+    width: "100%",
+    height: "10%",
     justifyContent: "center",
     alignItems: "center",
   },
   middleContainer: {
     width: "100%",
-    height: "60vh",
+    height: "60%",
     [theme.breakpoints.down("md")]: {
-      height: "75vh",
+      height: "70%",
     },
     justifyContent: "center",
     alignItems: "center",
   },
 
-  autocomplete: {
-    width: "40vw",
-    [theme.breakpoints.down("md")]: {
-      width: "90vw",
-      position: "fixed",
-      marginBottom: theme.spacing(2),
-    },
-  },
-  textFieldStyle: {
-    color: "black",
-  },
   footerContainer: {
-    width: "inherit",
-    height: "8vh",
+    width: "100%",
+    height: "10%",
   },
 }));
 
 const MainDashboard = () => {
   const classes = useStyles({});
-  const [state, dispatch] = useContext(UserStore);
   const theme = useTheme();
   const biggerThanMd = useMediaQuery(theme.breakpoints.up("md"));
+
+  const [optionsSelected, setOptionsSelected] = useState([]);
+  const [news, setNews] = useState([]);
+  const [state, dispatch] = useContext(UserStore);
 
   const newsSources = [
     { formattedTitle: "BBC NEWS", title: "bbc-news" },
@@ -75,8 +63,13 @@ const MainDashboard = () => {
     { formattedTitle: "Daily UK", title: "daily-news" },
   ];
 
-  const [optionsSelected, setOptionsSelected] = useState([]);
-  const [news, setNews] = useState([]);
+  const appHeight = () =>
+    document.documentElement.style.setProperty(
+      "--app-height",
+      `${window.innerHeight}px`
+    );
+  window.addEventListener("resize", appHeight);
+  appHeight();
 
   useEffect(() => {
     const getInitialData = async () => {
@@ -128,98 +121,35 @@ const MainDashboard = () => {
 
   return (
     <Fade in={true}>
-      <div className={classes.parentContainer}>
+      <Grid container className={classes.parentContainer}>
         <div className={classes.headerContainer}>
-          <Header userLogged={state.currentUser} />
+          <Header />
         </div>
-        {biggerThanMd && (
-          <div className={classes.topContainer}>
-            <Grid
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-            >
+        <Grid item className={classes.topContainer}>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            {biggerThanMd && (
               <Grid item xs={12} lg={5}>
                 <Typography variant="h3">Welcome to your daily news</Typography>
               </Grid>
+            )}
 
-              <Autocomplete
-                className={classes.autocomplete}
-                multiple
-                size="medium"
-                options={newsSources}
-                getOptionSelected={(option, value) =>
-                  option.title === value.title
-                }
-                getOptionLabel={(option) => option.formattedTitle}
-                renderOption={(params) => (
-                  <Button
-                    fullWidth
-                    onClick={() => updateOptionsSelected(params)}
-                  >
-                    <Typography color="primary">
-                      {params.formattedTitle}
-                    </Typography>
-                  </Button>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Choose your sources"
-                    placeholder="Favorites"
-                  />
-                )}
-              />
-            </Grid>
-          </div>
-        )}
+            <ChoicePickerAutocomplete
+              updateOptionsSelected={updateOptionsSelected}
+              itemSource={newsSources}
+            />
+          </Grid>
+        </Grid>
 
-        <div className={classes.middleContainer}>
-          {!biggerThanMd && (
-            <Grid
-              container
-              style={{ backgroundColor: "red" }}
-              justify="center"
-              alignItems="center"
-              style={{ paddingBottom: theme.spacing(2) }}
-            >
-              <Autocomplete
-                className={classes.autocomplete}
-                multiple
-                size="medium"
-                options={newsSources}
-                getOptionSelected={(option, value) =>
-                  option.title === value.title
-                }
-                getOptionLabel={(option) => option.formattedTitle}
-                renderOption={(params) => (
-                  <Button
-                    fullWidth
-                    onClick={() => updateOptionsSelected(params)}
-                  >
-                    <Typography color="primary">
-                      {params.formattedTitle}
-                    </Typography>
-                  </Button>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Choose your sources"
-                    placeholder="Favorites"
-                  />
-                )}
-              />
-            </Grid>
-          )}
-          <div></div>
+        <Grid item className={classes.middleContainer}>
           <Grid
             style={{
               marginTop: theme.spacing(2),
-              height: "95%",
+              height: "100%",
               overflowY: "scroll",
             }}
             container
@@ -240,11 +170,11 @@ const MainDashboard = () => {
               );
             })}
           </Grid>
-        </div>
-        <div className={classes.footerContainer}>
+        </Grid>
+        <Grid item className={classes.footerContainer}>
           <Footer />
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </Fade>
   );
 };

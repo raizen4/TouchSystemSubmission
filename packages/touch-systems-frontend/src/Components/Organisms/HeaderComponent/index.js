@@ -8,7 +8,6 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import zIndex from "@material-ui/core/styles/zIndex";
 
 import ContextMenuHeaderMobile from "../../Molecules/ContextMenuHeaderComponent/index";
 import GREY from "@material-ui/core/colors/grey";
@@ -16,10 +15,8 @@ import GREY from "@material-ui/core/colors/grey";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    height: "inherit",
-    width: "inherit",
-    position: "fixed",
-    zIndex: 100,
+    height:"100%",
+  
   },
 
   footerItemStyleDesktop: {
@@ -59,13 +56,12 @@ const Header = ({ userLogged }) => {
   return (
     <div className={classes.root}>
       {!biggerThanMd ? (
-        <AppBar style={{ height: "inherit", backgroundColor: `${GREY[800]}` }}>
+        <AppBar  position="static" style={{ backgroundColor: `${GREY[800]}` }}>
           {!currentUser ? (
             <Toolbar>
               <Grid
                 alignItems="center"
                 direction="row"
-                alignItems="center"
                 container
               >
                 <Grid className={classes.footerItemStyleMobile} item>

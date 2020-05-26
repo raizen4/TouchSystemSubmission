@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -57,7 +58,7 @@ body {
       rgba(57, 173, 219, 0.25) 0%,
       rgba(78, 42, 87, 0.4) 100%
     ),
-    linear-gradient(135deg, #d8161c 0%, #003fa3 100%);
+    linear-gradient(135deg, #e40a12 0%, #003fa3 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
 }
 
@@ -65,3 +66,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
