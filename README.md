@@ -1,11 +1,21 @@
 
 # How to run
-  Please have yarn installed by all means as this is needed by the monorepo. Then just run "yarn install" and after it finishes "yarn startFrontend" and you should see the page" 
-  
+  Please have yarn installed by all means as this is needed by the monorepo. Then just run "yarn install" and after it finishes "yarn startFrontend" and you should see the login page
+# Features
+ - Fully working Sign Up page using global state management
+ - Main dashboard shows news around the world by default and details about them using collapsable Cards
+ - Modern interface
+ - Can filter by specific publications
+ - Navigation
+ - Fully working Rest api interface.
+ 
+
 # Choice of technnologies.
  
 ## React
 - React Hooks
+- Used peroper theming throughout the project
+- Kept reusability to a maximum by adhering to ATOMIC and SOLID principles
 - Material ui for fluid UI as it uses google guidelines for UI and UX
 - Axios for HTTP calls
 - Context API for global store management
@@ -26,9 +36,13 @@
 # Images!!
 
   ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/1.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/2.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/3.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/4.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/5.PNG)
-  ![Image1](https://github.com/raizen4/TouchSystemSubmission/blob/master/6.PNG)
+  ![Image2](https://github.com/raizen4/TouchSystemSubmission/blob/master/2.PNG)
+  ![Image3](https://github.com/raizen4/TouchSystemSubmission/blob/master/9.PNG)
+  ![Image4](https://github.com/raizen4/TouchSystemSubmission/blob/master/10.PNG)
+  ![Image5](https://github.com/raizen4/TouchSystemSubmission/blob/master/11.PNG)
+  ![Image6](https://github.com/raizen4/TouchSystemSubmission/blob/master/12.PNG)
+  ![Image7](https://github.com/raizen4/TouchSystemSubmission/blob/master/14.PNG)
+  ![Image8](https://github.com/raizen4/TouchSystemSubmission/blob/master/15.PNG)
+  ![Image9](https://github.com/raizen4/TouchSystemSubmission/blob/master/17.PNG)
+
 
