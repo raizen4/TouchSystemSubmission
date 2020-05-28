@@ -57,14 +57,6 @@ const MainDashboard = () => {
     { formattedTitle: "Daily UK", title: "daily-news" },
   ];
 
-  const appHeight = () =>
-    document.documentElement.style.setProperty(
-      "--app-height",
-      `${window.innerHeight}px`
-    );
-  window.addEventListener("resize", appHeight);
-  appHeight();
-
   useEffect(() => {
     const getInitialData = async () => {
       try {
@@ -84,9 +76,7 @@ const MainDashboard = () => {
         if (optionsSelected.length === 0) {
           apiResp = await NewsApi.getTopHeadlinesUK();
         } else {
-          apiResp = await NewsApi.getHeadlinesBasedOnPublication(
-            optionsSelected
-          );
+          apiResp = await NewsApi.getHeadlinesBasedOnPublication(optionsSelected);
         }
 
         setNews(apiResp);
@@ -94,21 +84,16 @@ const MainDashboard = () => {
         console.log(err);
       }
     };
-
     getPublicationData();
   }, [setOptionsSelected, optionsSelected]);
 
   const updateOptionsSelected = (params) => {
     {
       const currentSelection = params;
-      if (
-        !optionsSelected.find((option) => option === currentSelection.title)
-      ) {
+      if (!optionsSelected.find((option) => option === currentSelection.title)) {
         setOptionsSelected([...optionsSelected, currentSelection.title]);
       } else {
-        setOptionsSelected(
-          optionsSelected.filter((option) => option !== currentSelection.title)
-        );
+        setOptionsSelected(optionsSelected.filter((option) => option !== currentSelection.title));
       }
     }
   };
@@ -121,22 +106,13 @@ const MainDashboard = () => {
         </Grid>
 
         <Grid item className={classes.topContainer}>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
+          <Grid container direction="column" justify="center" alignItems="center">
             {biggerThanMd && (
               <Grid item xs={12} lg={5}>
                 <Typography variant="h3">Welcome to your daily news</Typography>
               </Grid>
             )}
-
-            <ChoicePickerAutocomplete
-              updateOptionsSelected={updateOptionsSelected}
-              itemSource={newsSources}
-            />
+            <ChoicePickerAutocomplete updateOptionsSelected={updateOptionsSelected} itemSource={newsSources} />
           </Grid>
         </Grid>
 
@@ -153,13 +129,7 @@ const MainDashboard = () => {
           >
             {news.map((newsPiece) => {
               return (
-                <Grid
-                  style={{ margin: theme.spacing(1) }}
-                  key={newsPiece.guid}
-                  item
-                  xs={12}
-                  lg={6}
-                >
+                <Grid style={{ margin: theme.spacing(1) }} key={newsPiece.guid} item xs={12} lg={6}>
                   <MainStory item={newsPiece} />
                 </Grid>
               );

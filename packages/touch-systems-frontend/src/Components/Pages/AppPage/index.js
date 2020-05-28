@@ -45,15 +45,6 @@ const App = () => {
   let history = useHistory();
   const [state, dispatch] = useContext(UserStore);
 
-  const appHeight = () =>
-    document.documentElement.style.setProperty(
-      "--app-height",
-      `${window.innerHeight}px`
-    );
-  window.addEventListener("resize", appHeight);
-
-  appHeight();
-
   const validateFormAndNavigate = (values) => {
     const { email, displayName } = values;
     dispatch({
@@ -63,9 +54,9 @@ const App = () => {
         userEmail: email,
       },
     });
-
     history.push("/Dashboard");
   };
+
   const getAuthToken = async () => {
     // You should should use getAccessToken() to fetch a fresh token before making API calls
     const token = await authProvider.getAccessToken();
@@ -73,6 +64,7 @@ const App = () => {
     console.log(token.accessToken);
     console.log(userInfo.account);
   };
+
   return (
     <Fade in={true}>
       <Grid container className={classes.parentContainer}>

@@ -15,17 +15,20 @@ import Collapse from "@material-ui/core/Collapse";
 const useStyles = makeStyles((theme) => ({
   footerItemStyleDesktop: {
     marginLeft: theme.spacing(8),
-    paddingBottom: "0",
+    paddingBottom: theme.spacing(0),
   },
 
   footerItemStyleMobile: {
     marginLeft: theme.spacing(1),
-    paddingBottom: "0",
+    paddingBottom: theme.spacing(0),
   },
 
-  imageStyleMobile: {
-    width: "45px",
-    height: "50px",
+  imageStyle: {
+    width: "60%",
+    [theme.breakpoints.down("md")]: {
+      height: "300px",
+      width: "100%",
+    },
   },
 
   root: {
@@ -49,16 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const MainStory = (props) => {
   const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles({});
-  const {
-    source,
-    author,
-    datePublished,
-    description,
-    title,
-    imageThumb,
-    linkToNewsSource,
-    content,
-  } = props.item;
+  const { source, author, datePublished, description, title, imageThumb, linkToNewsSource, content } = props.item;
 
   const preventDefault = (event) => event.preventDefault();
 
@@ -80,11 +74,7 @@ const MainStory = (props) => {
       </CardContent>
 
       <CardActionArea>
-        <img
-          alt="Error loading"
-          style={{ width: "100%", height: "300px" }}
-          src={imageThumb}
-        />
+        <img alt="Error loading" className={classes.imageStyle} src={imageThumb} />
 
         <CardContent>
           <Typography color="textSecondary" gutterBottom variant="h6">

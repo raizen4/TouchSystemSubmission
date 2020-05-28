@@ -23,6 +23,7 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
+// A little hack to make sure the real viewport is used for mobile responsiveness
 const appHeight = () =>
 document.documentElement.style.setProperty(
   "--app-height",
@@ -30,6 +31,7 @@ document.documentElement.style.setProperty(
 );
 window.addEventListener("resize", appHeight);
 appHeight();
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

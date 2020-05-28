@@ -3,11 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 
-const ContextMenuHeaderMobile = ({
-  shouldBeOpened,
-  closedMenuHandle,
-  anchor,
-}) => {
+const ContextMenuHeaderMobile = ({ shouldBeOpened, closedMenuHandle, anchor }) => {
   return (
     <Menu
       anchorEl={anchor}
@@ -19,11 +15,15 @@ const ContextMenuHeaderMobile = ({
       onClose={closedMenuHandle}
     >
       <Button fullWidth onClick={closedMenuHandle}>
-        <Typography color="textSecondary"> Support</Typography>
+        <Typography color="textSecondary"> Profile Info</Typography>
       </Button>
 
       <Button fullWidth onClick={closedMenuHandle}>
-        <Typography color="textSecondary"> Downloads</Typography>
+        <Typography color="textSecondary"> Update Profile</Typography>
+      </Button>
+      
+      <Button fullWidth onClick={closedMenuHandle}>
+        <Typography color="textSecondary"> App Settings</Typography>
       </Button>
     </Menu>
   );
