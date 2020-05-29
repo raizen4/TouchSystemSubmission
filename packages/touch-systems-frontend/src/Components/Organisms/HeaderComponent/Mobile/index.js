@@ -1,10 +1,11 @@
-import React from "react";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import React, { useState } from "react";
+import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import Grid from "@material-ui/core/Grid";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
@@ -16,6 +17,7 @@ import Avatar from "@material-ui/core/Avatar";
 import deepOrange from "@material-ui/core/colors/deepOrange";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,17 +27,20 @@ const useStyles = makeStyles((theme) => ({
   },
 
   orange: {
-    width: "100px",
-    height: "100px",
+    width: "60px",
+    height: "60px",
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500],
   },
 }));
 
-const MobileHeader = ({ user }) => {
+const MobileHeader = ({ user, drawerAvailable, toggleMobileDrawer }) => {
   const [drawerState, setDrawerState] = useState(false);
-
-  const toggleDrawer = () => {
+  const classes = useStyles({});
+  const toggleDrawer = (event) => {
+    if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+      return;
+    }
     setDrawerState(!drawerState);
   };
 
@@ -45,24 +50,40 @@ const MobileHeader = ({ user }) => {
         <Toolbar>
           <Grid alignItems="center" direction="row" container>
             <Grid className={classes.footerItemStyleMobile} item>
-              <Button className={classes.footerItemStyleMobile} edge="end" color="inherit">
+              <Button
+                hidden={user.userEmail === "Not Available"}
+                onClick={() => toggleDrawer()}
+                className={classes.footerItemStyleMobile}
+                edge="end"
+                color="inherit"
+              >
                 <Typography color="textPrimary" variant="h5">
-                  <MenuIcon />
+                  <MenuIcon style={{ width: "30px", height: "50px" }} />
                 </Typography>
               </Button>
             </Grid>
 
-            <SwipeableDrawer anchor="left" open={drawerState} onClose={() => toggleDrawer()} onOpen={() => toggleDrawer()}>
+            <Drawer anchor="left" open={drawerState} onClose={toggleMobileDrawer} onOpen={toggleMobileDrawer}>
               <div>
                 <>
-                  <Avatar className={classes.orange}>OP</Avatar>
-                  <Typography variant="h4">Hello,{user.userDisplayName}</Typography>
+                  <Grid container direction="column" spacing={2} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Grid item>
+                      <ChevronLeftIcon style={{ color:"black", width: "50px", height: "50px" }} onClick={() => toggleDrawer()} />
+                    </Grid>
+                    <Grid item>
+                      <Avatar className={classes.orange}>OP</Avatar>
+                    </Grid>
+                    <Grid item>
+                      <Typography color="textSecondary">Hello,{user.userDisplayName}</Typography>
+                    </Grid>
+                  </Grid>
+
                   <Divider />
                   <List>
                     {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
                       <ListItem button key={text}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
+                        <Typography color="textSecondary">{text}</Typography>
                       </ListItem>
                     ))}
                   </List>
@@ -71,13 +92,13 @@ const MobileHeader = ({ user }) => {
                     {["All mail", "Trash", "Spam"].map((text, index) => (
                       <ListItem button key={text}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
+                        <Typography color="textSecondary">{text}</Typography>
                       </ListItem>
                     ))}
                   </List>
                 </>
               </div>
-            </SwipeableDrawer>
+            </Drawer>
           </Grid>
 
           <Button className={classes.footerItemStyleMobile} edge="end" color="inherit">

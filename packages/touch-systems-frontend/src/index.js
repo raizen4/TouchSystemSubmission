@@ -16,7 +16,7 @@ ReactDOM.render(
       <ThemeProvider theme={theme}>
         <Route exact path="/" component={App} />
         <Route path="/Dashboard" component={MainDashboard} />
-        <Redirect to="/Dashboard"></Redirect>
+        <Redirect to="/"></Redirect>
       </ThemeProvider>
     </UserStoreProvider>
   </BrowserRouter>,

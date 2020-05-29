@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import deepOrange from "@material-ui/core/colors/deepOrange";
 import AppBar from "@material-ui/core/AppBar";
@@ -7,7 +8,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import GREY from "@material-ui/core/colors/grey";
+import ContextMenuHeaderMobile from "../../../Molecules/ContextMenuHeaderComponent/index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,9 +17,14 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 
+  ItemStyleDesktop: {
+    marginLeft: theme.spacing(8),
+    paddingBottom: "0",
+  },
+
   orange: {
-    width: "100px",
-    height: "100px",
+    width: "60px",
+    height: "60px",
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500],
   },
@@ -45,13 +51,13 @@ const WebHeader = ({ user }) => {
         <Toolbar>
           <Grid item>
             <Button disableRipple edge="start" color="inherit">
-              <img alt="Error loading" style={{ width: "90px", height: "60px" }} src={require("../../../assets/YouInLogo.png")} />
+              <img alt="Error loading" style={{ width: "90px", height: "60px" }} src={require("../../../../assets/YouInLogo.png")} />
             </Button>
           </Grid>
 
           <Grid direction="row" alignItems="center" container>
-            <Grid className={classes.footerItemStyleDesktop} item>
-              <Button className={classes.footerItemStyleMobile} edge="end" color="inherit">
+            <Grid className={classes.ItemStyleDesktop} item>
+              <Button edge="end" color="inherit">
                 <Typography color="textPrimary" variant="h5">
                   About
                 </Typography>
@@ -59,36 +65,34 @@ const WebHeader = ({ user }) => {
             </Grid>
 
             <Grid className={classes.footerItemStyleDesktop} item>
-              <Button className={classes.footerItemStyleMobile} edge="end" color="inherit">
+              <Button className={classes.ItemStyleDesktop} edge="end" color="inherit">
                 <Typography color="textPrimary" variant="h5">
                   Features
                 </Typography>
               </Button>
             </Grid>
           </Grid>
-          <Button className={classes.footerItemStyleDesktop} disableRipple edge="end" color="inherit">
+          <Button className={classes.ItemStyleDesktop} disableRipple edge="end" color="inherit">
             <Typography color="textPrimary" variant="h5">
               Download
             </Typography>
           </Button>
-          <Button className={classes.footerItemStyleDesktop} disableRipple edge="end" color="inherit">
+          <Button className={classes.ItemStyleDesktop} disableRipple edge="end" color="inherit">
             <Typography color="textPrimary" variant="h5">
               Support
             </Typography>
           </Button>
           {user && (
-            <Button className={classes.footerItemStyleDesktop} disableRipple edge="end" color="inherit">
-              <Button
-                className={classes.footerItemStyleMobile}
-                edge="end"
-                color="inherit"
+            <Button hidden={user.userEmail === "Not Available"} className={classes.ItemStyleDesktop} disableRipple edge="end" color="inherit">
+              <Avatar
                 onClick={(event) => {
                   handleContextMenu(event);
                 }}
+                className={classes.orange}
               >
-                <Avatar className={classes.orange}>{user.username}</Avatar>
-                <ContextMenuHeaderMobile anchor={mobileAnchor} shouldBeOpened={mobileMenuOpen} closedMenuHandle={closeMenuHeaderMobile} />
-              </Button>
+                {user.username}
+              </Avatar>
+              <ContextMenuHeaderMobile anchor={mobileAnchor} shouldBeOpened={mobileMenuOpen} closedMenuHandle={handleContextMenu} />
             </Button>
           )}
         </Toolbar>
