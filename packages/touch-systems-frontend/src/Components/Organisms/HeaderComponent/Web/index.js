@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
@@ -8,7 +8,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+
 import ContextMenuHeaderMobile from "../../../Molecules/ContextMenuHeaderComponent/index";
+import { UserStore } from "../../../../stores/index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,11 +32,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const WebHeader = ({ user }) => {
+const WebHeader = () => {
   const classes = useStyles({});
   const theme = useTheme();
   const [mobileAnchor, setMobileAnchor] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [state, dispatch] = useContext(UserStore);
 
   const handleContextMenu = (event) => {
     if (mobileMenuOpen) {
@@ -82,15 +85,14 @@ const WebHeader = ({ user }) => {
               Support
             </Typography>
           </Button>
-          {user && (
-            <Button hidden={user.userEmail === "Not Available"} className={classes.ItemStyleDesktop} disableRipple edge="end" color="inherit">
+          {state.currentUser.userEmail !== "Not Available" && (
+            <Button className={classes.ItemStyleDesktop} disableRipple edge="end" color="inherit">
               <Avatar
                 onClick={(event) => {
                   handleContextMenu(event);
                 }}
                 className={classes.orange}
               >
-                {user.username}
               </Avatar>
               <ContextMenuHeaderMobile anchor={mobileAnchor} shouldBeOpened={mobileMenuOpen} closedMenuHandle={handleContextMenu} />
             </Button>

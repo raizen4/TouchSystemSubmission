@@ -31,20 +31,8 @@ const Header = ({ userLogged }) => {
   const classes = useStyles({});
   const theme = useTheme();
   const biggerThanMd = useMediaQuery(theme.breakpoints.up("md"));
-  let currentUser = {
-    userDisplayName: "Guest",
-    userEmail: "Not Available",
-  };
-  if (userLogged) {
-    currentUser = userLogged;
-  }
-  console.log(userLogged);
 
-  return (
-    <div className={classes.root}>
-      {!biggerThanMd ? <MobileHeader drawerAvailable={currentUser.userDisplayName !== "Guest"} user={currentUser} /> : <WebHeader user={currentUser} />}
-    </div>
-  );
+  return <div className={classes.root}>{!biggerThanMd ? <MobileHeader /> : <WebHeader />}</div>;
 };
 
 export default Header;

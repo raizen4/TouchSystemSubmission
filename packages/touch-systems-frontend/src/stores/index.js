@@ -3,7 +3,10 @@ import React, { useReducer, createContext } from "react";
 export const UserStore = createContext();
 
 const initialValues = {
-  currentUser: {},
+  currentUser: {
+    userDisplayName: "Guest",
+    userEmail: "Not Available",
+  },
 };
 
 const reducer = (state, action) => {
@@ -27,9 +30,5 @@ const reducer = (state, action) => {
 export const UserStoreProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, initialValues);
 
-  return (
-    <UserStore.Provider value={[state, dispatch]}>
-      {props.children}
-    </UserStore.Provider>
-  );
+  return <UserStore.Provider value={[state, dispatch]}>{props.children}</UserStore.Provider>;
 };

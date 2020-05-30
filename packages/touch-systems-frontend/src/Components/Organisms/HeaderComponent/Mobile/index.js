@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
@@ -19,6 +19,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
+import { UserStore } from "../../../../stores/index";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -34,9 +36,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MobileHeader = ({ user, drawerAvailable, toggleMobileDrawer }) => {
+const MobileHeader = () => {
   const [drawerState, setDrawerState] = useState(false);
   const classes = useStyles({});
+  const [state, dispatch] = useContext(UserStore);
+
   const toggleDrawer = (event) => {
     if (event && event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
@@ -50,31 +54,27 @@ const MobileHeader = ({ user, drawerAvailable, toggleMobileDrawer }) => {
         <Toolbar>
           <Grid alignItems="center" direction="row" container>
             <Grid className={classes.footerItemStyleMobile} item>
-              <Button
-                hidden={user.userEmail === "Not Available"}
-                onClick={() => toggleDrawer()}
-                className={classes.footerItemStyleMobile}
-                edge="end"
-                color="inherit"
-              >
-                <Typography color="textPrimary" variant="h5">
-                  <MenuIcon style={{ width: "30px", height: "50px" }} />
-                </Typography>
-              </Button>
+              {state.currentUser.userEmail !== "Not Available" && (
+                <Button onClick={() => toggleDrawer()} className={classes.footerItemStyleMobile} edge="end" color="inherit">
+                  <Typography color="textPrimary" variant="h5">
+                    <MenuIcon style={{ width: "30px", height: "50px" }} />
+                  </Typography>
+                </Button>
+              )}
             </Grid>
 
-            <Drawer anchor="left" open={drawerState} onClose={toggleMobileDrawer} onOpen={toggleMobileDrawer}>
+            <Drawer anchor="left" open={drawerState} onClose={() => toggleDrawer()} onOpen={() => toggleDrawer()}>
               <div>
                 <>
                   <Grid container direction="column" spacing={2} style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <Grid item>
-                      <ChevronLeftIcon style={{ color:"black", width: "50px", height: "50px" }} onClick={() => toggleDrawer()} />
+                      <ChevronLeftIcon style={{ color: "black", width: "50px", height: "50px" }} onClick={() => toggleDrawer()} />
                     </Grid>
                     <Grid item>
                       <Avatar className={classes.orange}>OP</Avatar>
                     </Grid>
                     <Grid item>
-                      <Typography color="textSecondary">Hello,{user.userDisplayName}</Typography>
+                      <Typography color="textSecondary">Hello,{state.currentUser.userDisplayName}</Typography>
                     </Grid>
                   </Grid>
 
